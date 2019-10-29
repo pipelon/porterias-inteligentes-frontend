@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "PorteriasInteligentestemp": {
+    "mi-pro": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/PorteriasInteligentestemp",
+            "outputPath": "dist/mi-pro",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -67,18 +67,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "PorteriasInteligentestemp:build"
+            "browserTarget": "mi-pro:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "PorteriasInteligentestemp:build:production"
+              "browserTarget": "mi-pro:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "PorteriasInteligentestemp:build"
+            "browserTarget": "mi-pro:build"
           }
         },
         "test": {
@@ -115,15 +115,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "PorteriasInteligentestemp:serve"
+            "devServerTarget": "mi-pro:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "PorteriasInteligentestemp:serve:production"
+              "devServerTarget": "mi-pro:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "PorteriasInteligentestemp"
+  "defaultProject": "mi-pro"
 }
