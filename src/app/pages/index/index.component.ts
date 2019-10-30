@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HousingestateService } from 'src/app/services/housingestate.service';
 
 @Component({
   selector: 'app-index',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndexComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _service: HousingestateService) { }
 
   ngOnInit() {
+    this.getHousingEstates();
+  }
+
+  getHousingEstates() {
+    this._service.getHousingEstates()
+      .subscribe(
+        data => {
+          console.info('data: ', data);
+        },
+        error => {
+          console.info('Error: ', error);
+        }
+      );
   }
 
 }

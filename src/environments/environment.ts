@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  urlApi: "http://localhost/Onic/PorteriasInteligentes/web/",
+  idUnidadResidencial : 1,
+  username: 'usarroyo',
+  password: 'pwArroyo123'
 };
 
 /*
