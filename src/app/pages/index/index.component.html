@@ -61,34 +61,34 @@
                     <input type="text" name="search" class="form-control" (input)="onSearchChange($event.target.value)"
                         placeholder="Buscar...">
                     <span class="input-group-btn">
-                        <button type="submit" name="search" id="search-btn" (click)="searchApartment(search)"
+                        <button type="submit" name="search" id="search-btn" (click)="searchApartment()"
                             class="btn btn-flat"><i class="fa fa-search"></i>
                         </button>
                     </span>
                 </div>
                 <br />
                 <div class="aptosfound-container">
-                    <div *ngIf="!dataAptoFound.length > 0">
+                    <div *ngIf="!(dataAptoFound.length > 0)">
                         No hay resultados
                     </div>
                     <div class="aptosfound-block" *ngFor="let apto of dataAptoFound">
                         <div class="aptosfound">
                             <span class="title">{{apto.name}}</span>
-                            <a (click)="callApartmentll(apto.cellphone_number_2)"
+                            <a *ngIf="apto.cellphone_number_2" (click)="callApartmentll(apto.cellphone_number_2)"
                                 class="pull-right btn btn-default btn-xs">
                                 <i class="fa fa-phone"></i>
                                 Llamar 4
                             </a>
-                            <a (click)="callApartmentll(apto.cellphone_number_1)"
+                            <a *ngIf="apto.cellphone_number_1" (click)="callApartmentll(apto.cellphone_number_1)"
                                 class="pull-right btn btn-default btn-xs">
                                 <i class="fa fa-phone"></i>
                                 Llamar 3
                             </a>
-                            <a (click)="callApartmentll(apto.phone_number_2)" class="pull-right btn btn-default btn-xs">
+                            <a *ngIf="apto.phone_number_2" (click)="callApartmentll(apto.phone_number_2)" class="pull-right btn btn-default btn-xs">
                                 <i class="fa fa-phone"></i>
                                 Llamar 2
                             </a>
-                            <a (click)="callApartmentll(apto.phone_number_1)" class="pull-right btn btn-default btn-xs">
+                            <a *ngIf="apto.phone_number_1" (click)="callApartmentll(apto.phone_number_1)" class="pull-right btn btn-default btn-xs">
                                 <i class="fa fa-phone"></i>
                                 Llamar 1
                             </a>
