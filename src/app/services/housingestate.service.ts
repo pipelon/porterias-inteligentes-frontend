@@ -4,7 +4,8 @@ import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { HousingEstate } from '../models/housingestate';
 import { environment } from 'src/environments/environment';
 import { catchError, retry } from 'rxjs/operators';
- 
+import { Apartments } from '../models/apartment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,15 +13,26 @@ export class HousingestateService {
 
   private api = environment.urlApi;
   private serviceUrl: string = `api/view`;
+  private searchAptoUrl: string = `api/searchapartment`;
 
   constructor(private _http: HttpClient) { }
 
   getHousingEstates(): Observable<HousingEstate> {
     return this._http.get<HousingEstate>(`${this.api}${this.serviceUrl}`)
-    .pipe(
-      retry(3), // retry a failed request up to 3 times
-      catchError(this.handleError) // then handle the error
-    );
+      .pipe(
+        retry(3), // retry a failed request up to 3 times
+        catchError(this.handleError) // then handle the error
+      );
+  }
+
+  getSearchApartment(search: string): Observable<Apartments[]> {
+    console.info('search', search);
+    return this._http.post<Apartments[]>(`${this.api}${this.searchAptoUrl}`, { 'search': search })
+      .pipe(
+        retry(3), // retry a failed request up to 3 times
+        catchError(this.handleError) // then handle the error
+      );
+
   }
 
   private handleError(error: HttpErrorResponse) {

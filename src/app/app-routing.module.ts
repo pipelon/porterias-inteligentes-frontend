@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   { path: 'inicio', loadChildren: './pages/index/index.module#IndexModule' },
 ];
 
