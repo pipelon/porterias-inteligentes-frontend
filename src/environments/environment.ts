@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   urlApi: "http://localhost/Onic/PorteriasInteligentes/web/",
-  idUnidadResidencial : 1,
+  idUnidadResidencial: ["1", "2"],
   username: 'usarroyo',
   password: 'pwArroyo123'
 };

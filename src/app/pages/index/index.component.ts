@@ -17,6 +17,8 @@ export class IndexComponent implements OnInit {
   public lng: number;
   public zoom: number = 10;
   public search: string = '';
+  public HousingEstate: any;
+  public housingEstateID: number;
 
   constructor(private _service: HousingestateService) { }
 
@@ -24,17 +26,21 @@ export class IndexComponent implements OnInit {
     this.getHousingEstates();
   }
 
+  getSelectedHousingEstate(selectedHousingEstate: any) {
+    this.HousingEstate = selectedHousingEstate;
+    this.housingEstateID = this.HousingEstate.id;
+    if (this.HousingEstate.location) {
+      let arrayCoord = this.HousingEstate.location.split(",");
+      this.lat = parseInt(arrayCoord[0]);
+      this.lng = parseInt(arrayCoord[1]);
+    }
+  }
+
   getHousingEstates() {
     this._service.getHousingEstates()
       .subscribe(
         data => {
           this.dataHousingEstate = data;
-          if (this.dataHousingEstate.location) {
-            let arrayCoord = this.dataHousingEstate.location.split(",");
-            this.lat = parseInt(arrayCoord[0]);
-            this.lng = parseInt(arrayCoord[1]);
-          }
-          console.info(this.dataHousingEstate);
         },
         error => {
           console.info('Error: ', error);
@@ -65,7 +71,7 @@ export class IndexComponent implements OnInit {
   }
   searchApartment() {
     if (this.search && this.search != '') {
-      this._service.getSearchApartment(this.search)
+      this._service.getSearchApartment(this.housingEstateID, this.search)
         .subscribe(
           data => {
             this.dataAptoFound = data;

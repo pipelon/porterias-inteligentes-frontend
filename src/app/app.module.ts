@@ -9,10 +9,12 @@ import { BasicAuthInterceptor } from './interceptors/basicauthinterceptor';
 import { AgmCoreModule } from '@agm/core';
 import { PipesModule } from './pipes/pipes.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+//import { HeaderComponent } from './layout/header/header.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    //HeaderComponent
   ],
   imports: [
     BrowserModule,

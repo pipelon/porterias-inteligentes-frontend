@@ -1,198 +1,213 @@
-<div class="row" *ngIf="dataHousingEstate">
-    <div class="col-md-5">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <i class="fa fa-info-circle"></i>
-                <h3 class="box-title">Información general</h3>
-            </div>
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-                            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-                        </agm-map>
+<app-header *ngIf="dataHousingEstate" [listHousingEstates]="dataHousingEstate"
+    (selectedHousingEstate)="getSelectedHousingEstate($event)"></app-header>
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row" *ngIf="HousingEstate">
+            <div class="col-md-5">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-info-circle"></i>
+                        <h3 class="box-title">Información general</h3>
                     </div>
-                    <div class="col-md-6">
-                        <h4 class="tituNameHE">{{dataHousingEstate.name}}</h4>
-                        <address>
-                            {{dataHousingEstate.address}}<br />
-                            {{dataHousingEstate.phone_number}}<br />
-                            {{dataHousingEstate.neighborhood}} -
-                            {{dataHousingEstate.city.name}}
-                        </address>
-                    </div>
-                </div>
-            </div>
-            <div class="box-footer">
-                <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-default" *ngIf="dataHousingEstate.administrators.length > 0">
-                        <i class="fa fa-phone"></i>
-                        Administradores
-                    </button>
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                        *ngIf="dataHousingEstate.administrators.length > 0">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" *ngIf="dataHousingEstate.administrators.length > 0">
-                        <li *ngFor="let admin of dataHousingEstate.administrators">
-                            <a href="#">
-                                <i class="fa fa-user"></i>
-                                {{admin.name}}
-                                ({{admin.cellphone}})
-                            </a>
-                        </li>
-                    </ul>
-
-                    <button type="button" class="btn btn-default">
-                        <i class="fa fa-phone"></i>
-                        cuadrante ({{dataHousingEstate.police_phone_number}})
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <i class="fa fa-users"></i>
-                <h3 class="box-title">Residentes</h3>
-            </div>
-            <div class="box-body">
-                <div class="input-group">
-                    <input type="text" name="search" class="form-control" (input)="onSearchChange($event.target.value)"
-                        placeholder="Buscar...">
-                    <span class="input-group-btn">
-                        <button type="submit" name="search" id="search-btn" (click)="searchApartment()"
-                            class="btn btn-flat"><i class="fa fa-search"></i>
-                        </button>
-                    </span>
-                </div>
-                <br />
-                <div class="aptosfound-container">
-                    <div *ngIf="!(dataAptoFound.length > 0)">
-                        No hay resultados
-                    </div>
-                    <div class="aptosfound-block" *ngFor="let apto of dataAptoFound">
-                        <div class="aptosfound">
-                            <span class="title">{{apto.name}}</span>
-                            <a *ngIf="apto.cellphone_number_2" (click)="callApartmentll(apto.cellphone_number_2)"
-                                class="pull-right btn btn-default btn-xs">
-                                <i class="fa fa-phone"></i>
-                                Llamar 4
-                            </a>
-                            <a *ngIf="apto.cellphone_number_1" (click)="callApartmentll(apto.cellphone_number_1)"
-                                class="pull-right btn btn-default btn-xs">
-                                <i class="fa fa-phone"></i>
-                                Llamar 3
-                            </a>
-                            <a *ngIf="apto.phone_number_2" (click)="callApartmentll(apto.phone_number_2)" class="pull-right btn btn-default btn-xs">
-                                <i class="fa fa-phone"></i>
-                                Llamar 2
-                            </a>
-                            <a *ngIf="apto.phone_number_1" (click)="callApartmentll(apto.phone_number_1)" class="pull-right btn btn-default btn-xs">
-                                <i class="fa fa-phone"></i>
-                                Llamar 1
-                            </a>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                                    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                                </agm-map>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="tituNameHE">{{HousingEstate.name}}</h4>
+                                <address>
+                                    {{HousingEstate.address}}<br />
+                                    {{HousingEstate.phone_number}}<br />
+                                    {{HousingEstate.neighborhood}} -
+                                    {{HousingEstate.city.name}}
+                                </address>
+                            </div>
                         </div>
-                        <div class="description">
-                            <span><b>Residentes</b></span>
-                            <span>
-                                <span *ngFor="let resident of apto.residents">
-                                    {{resident.name + ', '}}
-                                </span>
+                    </div>
+                    <div class="box-footer">
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-default"
+                                *ngIf="HousingEstate.administrators.length > 0">
+                                <i class="fa fa-phone"></i>
+                                Administradores
+                            </button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                *ngIf="HousingEstate.administrators.length > 0">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu"
+                                *ngIf="HousingEstate.administrators.length > 0">
+                                <li *ngFor="let admin of HousingEstate.administrators">
+                                    <a href="#">
+                                        <i class="fa fa-user"></i>
+                                        {{admin.name}}
+                                        ({{admin.cellphone}})
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <button type="button" class="btn btn-default">
+                                <i class="fa fa-phone"></i>
+                                cuadrante ({{HousingEstate.police_phone_number}})
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-users"></i>
+                        <h3 class="box-title">Residentes</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control"
+                                (input)="onSearchChange($event.target.value)" placeholder="Buscar...">
+                            <span class="input-group-btn">
+                                <button type="submit" name="search" id="search-btn" (click)="searchApartment()"
+                                    class="btn btn-flat"><i class="fa fa-search"></i>
+                                </button>
                             </span>
                         </div>
+                        <br />
+                        <div class="aptosfound-container">
+                            <div *ngIf="!(dataAptoFound.length > 0)">
+                                No hay resultados
+                            </div>
+                            <div class="aptosfound-block" *ngFor="let apto of dataAptoFound">
+                                <div class="aptosfound">
+                                    <span class="title">{{apto.name}}</span>
+                                    <a *ngIf="apto.cellphone_number_2"
+                                        (click)="callApartmentll(apto.cellphone_number_2)"
+                                        class="pull-right btn btn-default btn-xs">
+                                        <i class="fa fa-phone"></i>
+                                        Llamar 4
+                                    </a>
+                                    <a *ngIf="apto.cellphone_number_1"
+                                        (click)="callApartmentll(apto.cellphone_number_1)"
+                                        class="pull-right btn btn-default btn-xs">
+                                        <i class="fa fa-phone"></i>
+                                        Llamar 3
+                                    </a>
+                                    <a *ngIf="apto.phone_number_2" (click)="callApartmentll(apto.phone_number_2)"
+                                        class="pull-right btn btn-default btn-xs">
+                                        <i class="fa fa-phone"></i>
+                                        Llamar 2
+                                    </a>
+                                    <a *ngIf="apto.phone_number_1" (click)="callApartmentll(apto.phone_number_1)"
+                                        class="pull-right btn btn-default btn-xs">
+                                        <i class="fa fa-phone"></i>
+                                        Llamar 1
+                                    </a>
+                                </div>
+                                <div class="description">
+                                    <span><b>Residentes</b></span>
+                                    <span>
+                                        <span *ngFor="let resident of apto.residents">
+                                            {{resident.name + ', '}}
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-7">
+                <div class="box box-default">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <a class="btn btn-app" style="width: 170px; height: 170px;">
+                            <i class="fa fa-play"></i> Play
+                        </a>
+                        <a class="btn btn-app btn-lg" style="width: 170px; height: 170px;">
+                            <i class="fa fa-play"></i> Play
+                        </a>
+                        <a class="btn btn-app btn-lg" style="width: 170px; height: 170px;">
+                            <i class="fa fa-play"></i> Play
+                        </a>
+                        <a class="btn btn-app btn-lg" style="width: 170px; height: 170px;">
+                            <i class="fa fa-play"></i> Play
+                        </a>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                <div class="box box-primary">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div *ngFor="let gate of HousingEstate.gates" class="pull-left"
+                            style="margin-right: 10px;">
+                            <div [ngSwitch]="gate.state">
+                                <button *ngSwitchCase="1" class="btn btn-success">
+                                    {{gate.name}}
+                                </button>
+                                <button *ngSwitchCase="2" class="btn btn-danger">
+                                    {{gate.name}}
+                                </button>
+                                <button *ngSwitchCase="3" class="btn btn-warning" placement="top"
+                                    [ngbTooltip]="gate.state_description">
+                                    <i class="fa fa-info-circle"></i>
+                                    {{gate.name}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <div class="box box-primary">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="phonenumber" [value]="phone_number"
+                                    style="margin-bottom:10px" />
+                                <div class="keyboard">
+                                    <a (click)="selectedNumber('1')" class="btn btn-default">1</a>
+                                    <a (click)="selectedNumber('2')" class="btn btn-default">2</a>
+                                    <a (click)="selectedNumber('3')" class="btn btn-default">3</a>
+                                    <a (click)="selectedNumber('4')" class="btn btn-default">4</a>
+                                    <a (click)="selectedNumber('5')" class="btn btn-default">5</a>
+                                    <a (click)="selectedNumber('6')" class="btn btn-default">6</a>
+                                    <a (click)="selectedNumber('7')" class="btn btn-default">7</a>
+                                    <a (click)="selectedNumber('8')" class="btn btn-default">8</a>
+                                    <a (click)="selectedNumber('9')" class="btn btn-default">9</a>
+                                    <a (click)="selectedNumber('*')" class="btn btn-default">*</a>
+                                    <a (click)="selectedNumber('0')" class="btn btn-default">0</a>
+                                    <a (click)="selectedNumber('#')" class="btn btn-default">#</a>
+                                    <a (click)="deletedNumber()" class="delete btn btn-warning">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                    </a>
+                                    <a (click)="call()" class="call btn btn-success">
+                                        <i class="fa fa-phone"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="alert alert-warning alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert"
+                                        aria-hidden="true">×</button>
+                                    <h4><i class="icon fa fa-warning"></i> Alertas</h4>
+                                    Alertas en los sensores.
+                                </div>
+                                <div class="alert alert-info alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert"
+                                        aria-hidden="true">×</button>
+                                    <h4><i class="icon fa fa-info-circle"></i> Mensajes o Eventos</h4>
+                                    Aqui aparecen mensajes y eventos en general.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+            </div>
+            <!-- /.col -->
         </div>
     </div>
-
-    <div class="col-md-7">
-        <div class="box box-default">
-            <!-- /.box-header -->
-            <div class="box-body">
-                <a class="btn btn-app" style="width: 170px; height: 170px;">
-                    <i class="fa fa-play"></i> Play
-                </a>
-                <a class="btn btn-app btn-lg" style="width: 170px; height: 170px;">
-                    <i class="fa fa-play"></i> Play
-                </a>
-                <a class="btn btn-app btn-lg" style="width: 170px; height: 170px;">
-                    <i class="fa fa-play"></i> Play
-                </a>
-                <a class="btn btn-app btn-lg" style="width: 170px; height: 170px;">
-                    <i class="fa fa-play"></i> Play
-                </a>
-            </div>
-            <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
-        <div class="box box-primary">
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div *ngFor="let gate of dataHousingEstate.gates" class="pull-left" style="margin-right: 10px;">
-                    <div [ngSwitch]="gate.state">
-                        <button *ngSwitchCase="1" class="btn btn-success">
-                            {{gate.name}}
-                        </button>
-                        <button *ngSwitchCase="2" class="btn btn-danger">
-                            {{gate.name}}
-                        </button>
-                        <button *ngSwitchCase="3" class="btn btn-warning" placement="top"
-                            [ngbTooltip]="gate.state_description">
-                            <i class="fa fa-info-circle"></i>
-                            {{gate.name}}
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- /.box-body -->
-        </div>
-        <div class="box box-primary">
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" name="phonenumber" [value]="phone_number"
-                            style="margin-bottom:10px" />
-                        <div class="keyboard">
-                            <a (click)="selectedNumber('1')" class="btn btn-default">1</a>
-                            <a (click)="selectedNumber('2')" class="btn btn-default">2</a>
-                            <a (click)="selectedNumber('3')" class="btn btn-default">3</a>
-                            <a (click)="selectedNumber('4')" class="btn btn-default">4</a>
-                            <a (click)="selectedNumber('5')" class="btn btn-default">5</a>
-                            <a (click)="selectedNumber('6')" class="btn btn-default">6</a>
-                            <a (click)="selectedNumber('7')" class="btn btn-default">7</a>
-                            <a (click)="selectedNumber('8')" class="btn btn-default">8</a>
-                            <a (click)="selectedNumber('9')" class="btn btn-default">9</a>
-                            <a (click)="selectedNumber('*')" class="btn btn-default">*</a>
-                            <a (click)="selectedNumber('0')" class="btn btn-default">0</a>
-                            <a (click)="selectedNumber('#')" class="btn btn-default">#</a>
-                            <a (click)="deletedNumber()" class="delete btn btn-warning">
-                                <i class="glyphicon glyphicon-remove"></i>
-                            </a>
-                            <a (click)="call()" class="call btn btn-success">
-                                <i class="fa fa-phone"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="alert alert-warning alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <h4><i class="icon fa fa-warning"></i> Alertas</h4>
-                            Alertas en los sensores.
-                        </div>
-                        <div class="alert alert-info alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <h4><i class="icon fa fa-info-circle"></i> Mensajes o Eventos</h4>
-                            Aqui aparecen mensajes y eventos en general.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.box-body -->
-        </div>
-
-    </div>
-    <!-- /.col -->
 </div>

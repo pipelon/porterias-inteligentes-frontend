@@ -25,9 +25,8 @@ export class HousingestateService {
       );
   }
 
-  getSearchApartment(search: string): Observable<Apartments[]> {
-    console.info('search', search);
-    return this._http.post<Apartments[]>(`${this.api}${this.searchAptoUrl}`, { 'search': search })
+  getSearchApartment(housingEstateID: number, search: string): Observable<Apartments[]> {
+    return this._http.post<Apartments[]>(`${this.api}${this.searchAptoUrl}`, { 'housingEstateID': housingEstateID, 'search': search })
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error

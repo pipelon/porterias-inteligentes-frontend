@@ -5,12 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderComponent } from 'src/app/layout/header/header.component';
 
-const routes: Routes = [  
+const routes: Routes = [
   { path: '', component: IndexComponent },
 ];
 @NgModule({
-  declarations: [IndexComponent],
+  declarations: [IndexComponent, HeaderComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
