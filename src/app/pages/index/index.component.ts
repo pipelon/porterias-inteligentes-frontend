@@ -58,17 +58,30 @@ export class IndexComponent implements OnInit {
     this.phone_number = pn;
   }
 
-  call() {
-    console.info(this.phone_number);
+  call(phone_number: string) {
+    this._service.call(phone_number)
+      .subscribe(
+        data => {
+          console.info('data', data);
+        },
+        error => {
+          console.info('Error: ', error);
+        }
+      );
   }
 
   onSearchChange(searchValue: string) {
     this.search = searchValue;
   }
 
-  callApartmentll(number: string) {
-    console.info('number', number);
+  callKeyboard(number: string) {    
+    this.call(number);
   }
+
+  callApartment(number: string) {    
+    this.call(number);
+  }
+
   searchApartment() {
     if (this.search && this.search != '') {
       this._service.getSearchApartment(this.housingEstateID, this.search)

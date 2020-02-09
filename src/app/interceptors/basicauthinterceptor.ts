@@ -11,20 +11,29 @@ export class BasicAuthInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        let claves = btoa(environment.username + ':' + environment.password);
+        if (!request.headers.has("X-Skip-Interceptor")) {
+            let claves = btoa(environment.username + ':' + environment.password);
 
-        let idUnidadResidencial = (request.body && request.body.housingEstateID) ?
-            request.body.housingEstateID :
-            environment.idUnidadResidencial.toString();
+            let idUnidadResidencial = (request.body && request.body.housingEstateID) ?
+                request.body.housingEstateID :
+                environment.idUnidadResidencial.toString();
 
-        if (environment.username && environment.password) {
+            if (environment.username && environment.password) {
 
-            const clonedAuthRequest = request.clone({
-                headers: request.headers.set('Authorization', 'Basic ' + claves),
-                url: request.url + '?idUnidadResidencial=' + idUnidadResidencial,
-            });
+                const clonedAuthRequest = request.clone({
+                    headers: request.headers.set('Authorization', 'Basic ' + claves),
+                    url: request.url + '?idUnidadResidencial=' + idUnidadResidencial,
+                });
+                return this.nextHandle(clonedAuthRequest, next);
+
+            }
+        } else {
+            const clonedAuthRequest = request.clone(
+                {
+                    headers: request.headers.delete('X-Skip-Interceptor', 'true')
+                }
+            );
             return this.nextHandle(clonedAuthRequest, next);
-
         }
 
         return next.handle(request);

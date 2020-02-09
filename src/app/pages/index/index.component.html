@@ -81,23 +81,23 @@
                                 <div class="aptosfound">
                                     <span class="title">{{apto.name}}</span>
                                     <a *ngIf="apto.cellphone_number_2"
-                                        (click)="callApartmentll(apto.cellphone_number_2)"
+                                        (click)="callApartment(apto.cellphone_number_2)"
                                         class="pull-right btn btn-default btn-xs">
                                         <i class="fa fa-phone"></i>
                                         Llamar 4
                                     </a>
                                     <a *ngIf="apto.cellphone_number_1"
-                                        (click)="callApartmentll(apto.cellphone_number_1)"
+                                        (click)="callApartment(apto.cellphone_number_1)"
                                         class="pull-right btn btn-default btn-xs">
                                         <i class="fa fa-phone"></i>
                                         Llamar 3
                                     </a>
-                                    <a *ngIf="apto.phone_number_2" (click)="callApartmentll(apto.phone_number_2)"
+                                    <a *ngIf="apto.phone_number_2" (click)="callApartment(apto.phone_number_2)"
                                         class="pull-right btn btn-default btn-xs">
                                         <i class="fa fa-phone"></i>
                                         Llamar 2
                                     </a>
-                                    <a *ngIf="apto.phone_number_1" (click)="callApartmentll(apto.phone_number_1)"
+                                    <a *ngIf="apto.phone_number_1" (click)="callApartment(apto.phone_number_1)"
                                         class="pull-right btn btn-default btn-xs">
                                         <i class="fa fa-phone"></i>
                                         Llamar 1
@@ -182,7 +182,7 @@
                                     <a (click)="deletedNumber()" class="delete btn btn-warning">
                                         <i class="glyphicon glyphicon-remove"></i>
                                     </a>
-                                    <a (click)="call()" class="call btn btn-success">
+                                    <a (click)="callKeyboard(phone_number)" class="call btn btn-success">
                                         <i class="fa fa-phone"></i>
                                     </a>
                                 </div>

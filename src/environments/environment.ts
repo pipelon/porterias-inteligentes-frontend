@@ -4,10 +4,17 @@
 
 export const environment = {
   production: false,
-  urlApi: "http://localhost/Onic/PorteriasInteligentes/web/",
+  urlApi: "http://localhost/porterias-inteligentes/web/",
   idUnidadResidencial: ["1", "2"],
   username: 'usarroyo',
-  password: 'pwArroyo123'
+  password: 'pwArroyo123',
+  call: {
+    urServerCall: "http://142.93.60.136:8083/residentes/call.php",
+    CODEEXT: "2004",
+    NAME_CUSTOMER: "omar",
+    CODE_CUSTOMER: "4",
+    CODEPREFIX: "200"
+  }
 };
 
 /*
