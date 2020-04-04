@@ -26,6 +26,22 @@ export class HousingestateService {
       );
   }
 
+  openDoor(door) {
+    return this._http.get(`http://192.168.1.70/?DOOR2=T`)
+      .pipe(
+        retry(3), // retry a failed request up to 3 times
+        catchError(this.handleError) // then handle the error
+      );
+  }
+
+  closeDoor(door) {
+    return this._http.get(`http://192.168.1.70/?DOOR1=T`)
+      .pipe(
+        retry(3), // retry a failed request up to 3 times
+        catchError(this.handleError) // then handle the error
+      );
+  }
+
   getSearchApartment(housingEstateID: number, search: string): Observable<Apartments[]> {
     return this._http.post<Apartments[]>(`${this.api}${this.searchAptoUrl}`, { 'housingEstateID': housingEstateID, 'search': search })
       .pipe(

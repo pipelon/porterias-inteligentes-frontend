@@ -3,7 +3,7 @@
 <div class="content-wrapper">
     <div class="container-fluid">
         <div class="row" *ngIf="HousingEstate">
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <i class="fa fa-info-circle"></i>
@@ -39,8 +39,7 @@
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <ul class="dropdown-menu" role="menu"
-                                *ngIf="HousingEstate.administrators.length > 0">
+                            <ul class="dropdown-menu" role="menu" *ngIf="HousingEstate.administrators.length > 0">
                                 <li *ngFor="let admin of HousingEstate.administrators">
                                     <a href="#">
                                         <i class="fa fa-user"></i>
@@ -80,14 +79,12 @@
                             <div class="aptosfound-block" *ngFor="let apto of dataAptoFound">
                                 <div class="aptosfound">
                                     <span class="title">{{apto.name}}</span>
-                                    <a *ngIf="apto.cellphone_number_2"
-                                        (click)="callApartment(apto.cellphone_number_2)"
+                                    <a *ngIf="apto.cellphone_number_2" (click)="callApartment(apto.cellphone_number_2)"
                                         class="pull-right btn btn-default btn-xs">
                                         <i class="fa fa-phone"></i>
                                         Llamar 4
                                     </a>
-                                    <a *ngIf="apto.cellphone_number_1"
-                                        (click)="callApartment(apto.cellphone_number_1)"
+                                    <a *ngIf="apto.cellphone_number_1" (click)="callApartment(apto.cellphone_number_1)"
                                         class="pull-right btn btn-default btn-xs">
                                         <i class="fa fa-phone"></i>
                                         Llamar 3
@@ -117,22 +114,22 @@
                 </div>
             </div>
 
-            <div class="col-md-7">
+            <div class="col-md-8">
                 <div class="box box-default">
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <a class="btn btn-app" style="width: 170px; height: 170px;">
-                            <i class="fa fa-play"></i> Play
-                        </a>
-                        <a class="btn btn-app btn-lg" style="width: 170px; height: 170px;">
-                            <i class="fa fa-play"></i> Play
-                        </a>
-                        <a class="btn btn-app btn-lg" style="width: 170px; height: 170px;">
-                            <i class="fa fa-play"></i> Play
-                        </a>
-                        <a class="btn btn-app btn-lg" style="width: 170px; height: 170px;">
-                            <i class="fa fa-play"></i> Play
-                        </a>
+                        <div *ngIf="!(HousingEstate.securityCameras.length > 0)">
+                            <a class="btn btn-app" style="height: 170px; padding: 60px 20px">
+                                <i class="fa fa-play"></i>
+                                No hay cámaras de seguridad configuradas
+                            </a>
+                        </div>
+                        <div *ngIf="HousingEstate.securityCameras.length > 0">
+                            <iframe *ngFor="let camera of HousingEstate.securityCameras"
+                                class="iframeCamera"
+                                [src]="getSafeUrlCamera(camera.camera_ip, camera.code)"></iframe>
+                        </div>
+
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -140,13 +137,12 @@
                 <div class="box box-primary">
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <div *ngFor="let gate of HousingEstate.gates" class="pull-left"
-                            style="margin-right: 10px;">
+                        <div *ngFor="let gate of HousingEstate.gates" class="pull-left" style="margin-right: 10px;">
                             <div [ngSwitch]="gate.state">
-                                <button *ngSwitchCase="1" class="btn btn-success">
+                                <button *ngSwitchCase="1" class="btn btn-success" (click)="openDoor(gate.id)">
                                     {{gate.name}}
                                 </button>
-                                <button *ngSwitchCase="2" class="btn btn-danger">
+                                <button *ngSwitchCase="2" class="btn btn-danger" (click)="closeDoor(gate.id)">
                                     {{gate.name}}
                                 </button>
                                 <button *ngSwitchCase="3" class="btn btn-warning" placement="top"

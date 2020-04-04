@@ -9,6 +9,7 @@ export class HousingEstate {
     neighborhood: string;
     apartments: [];
     gates: [];
-    administrators: []
-    city: any
+    administrators: [];
+    city: any;
+    cameras: [];
 }

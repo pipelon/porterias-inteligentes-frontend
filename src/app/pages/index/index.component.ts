@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HousingestateService } from 'src/app/services/housingestate.service';
 import { HousingEstate } from 'src/app/models/housingestate';
 import { Apartments } from 'src/app/models/apartment';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-index',
@@ -20,10 +21,15 @@ export class IndexComponent implements OnInit {
   public HousingEstate: any;
   public housingEstateID: number;
 
-  constructor(private _service: HousingestateService) { }
+  constructor(private _service: HousingestateService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.getHousingEstates();
+  }
+
+  getSafeUrlCamera(IP: string, code: string) {
+    let url = IP + '/zm/?view=watch&mid=' + code + '&scale=14&showControls=false';
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
   getSelectedHousingEstate(selectedHousingEstate: any) {
@@ -74,12 +80,36 @@ export class IndexComponent implements OnInit {
     this.search = searchValue;
   }
 
-  callKeyboard(number: string) {    
+  callKeyboard(number: string) {
     this.call(number);
   }
 
-  callApartment(number: string) {    
+  callApartment(number: string) {
     this.call(number);
+  }
+
+  openDoor(door: number) {
+    this._service.openDoor(door)
+      .subscribe(
+        data => {
+          console.info(data);
+        },
+        error => {
+          console.info('Error: ', error);
+        }
+      );
+  }
+
+  closeDoor(door: number) {
+    this._service.closeDoor(door)
+      .subscribe(
+        data => {
+          console.info(data);
+        },
+        error => {
+          console.info('Error: ', error);
+        }
+      );
   }
 
   searchApartment() {
