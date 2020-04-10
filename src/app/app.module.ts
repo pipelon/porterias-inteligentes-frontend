@@ -9,6 +9,7 @@ import { BasicAuthInterceptor } from './interceptors/basicauthinterceptor';
 import { AgmCoreModule } from '@agm/core';
 import { PipesModule } from './pipes/pipes.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SocketService } from './services/socket.service';
 //import { HeaderComponent } from './layout/header/header.component';
 
 @NgModule({
@@ -35,7 +36,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       provide: HTTP_INTERCEPTORS,
       useClass: BasicAuthInterceptor,
       multi: true
-    }
+    },
+    SocketService
   ],
   bootstrap: [AppComponent]
 })

@@ -3,6 +3,8 @@ import { HousingestateService } from 'src/app/services/housingestate.service';
 import { HousingEstate } from 'src/app/models/housingestate';
 import { Apartments } from 'src/app/models/apartment';
 import { DomSanitizer } from '@angular/platform-browser';
+import { SocketService } from 'src/app/services/socket.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-index',
@@ -20,11 +22,23 @@ export class IndexComponent implements OnInit {
   public search: string = '';
   public HousingEstate: any;
   public housingEstateID: number;
+  public sub: Subscription;
+  public horusAlerts = [];
 
-  constructor(private _service: HousingestateService, private sanitizer: DomSanitizer) { }
+  constructor(private _service: HousingestateService,
+    private sanitizer: DomSanitizer,
+    private socketService: SocketService) { }
 
   ngOnInit() {
     this.getHousingEstates();
+    this.getAlerts();
+  }
+
+  getAlerts() {
+    this.sub = this.socketService.setupSocketConnection()
+      .subscribe(data => {
+        this.horusAlerts.unshift(data);
+      });
   }
 
   getSafeUrlCamera(IP: string, code: string) {

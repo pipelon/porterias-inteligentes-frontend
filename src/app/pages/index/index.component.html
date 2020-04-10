@@ -201,11 +201,10 @@
                         <h3 class="box-title">Alertas</h3>
                     </div>
                     <div class="box-body">
-                        <div class="alert alert-danger text-sm" role="alert">
-                            This is a danger alert—check it out!
-                        </div>
-                        <div class="alert alert-danger text-sm" role="alert">
-                            This is a danger alert—check it out!
+                        <div *ngFor="let alerta of horusAlerts" 
+                        class="alert alert-danger text-sm" 
+                        role="alert">
+                            {{alerta}}
                         </div>
                     </div>
                 </div>
