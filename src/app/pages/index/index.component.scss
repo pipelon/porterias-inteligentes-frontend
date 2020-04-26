@@ -15,17 +15,17 @@ agm-map { height: 120px; }
 }
 .keyboard{
     display: grid;
-    grid-template-columns: 50px 50px 50px;
-    grid-template-rows: 50px 50px 50px 50px;
-    grid-row-gap: 5px;
-    grid-column-gap: 5px;
+    grid-template-columns: 85px 85px 85px;
+    grid-template-rows: 85px 85px 85px 85px;
+    grid-row-gap: 7px;
+    grid-column-gap: 7px;
 }
 .keyboard > a {
   vertical-align: middle;
   text-align: center;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: bold;
-  padding: 10px;
+  padding: 25px;
 }
 .keyboard > a.call{
   grid-column-start: 2;

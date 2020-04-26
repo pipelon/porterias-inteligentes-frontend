@@ -5,8 +5,21 @@
     <div class="container-fluid">
         <div class="row" *ngIf="HousingEstate">
 
-            <!-- CAMARAS -->
+            <!--NOMBRE UNIDAD-->
             <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <i class="fa fa-home"></i>
+                        {{HousingEstate.name}}
+                        <a class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#infoUnidad">
+                            Ver más
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CAMARAS -->
+            <div class="col-md-6">
                 <div class="box box-default">
                     <div class="box-body">
                         <div *ngIf="!(HousingEstate.securityCameras.length > 0)">
@@ -23,19 +36,41 @@
                 </div>
             </div>
 
-            <!-- PUERTAS -->
-            <div class="col-md-12">
+            <!-- ALERTAS -->
+            <div class="col-md-3">
                 <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bell"></i>
+                        <h3 class="box-title">Monitor de seguimiento</h3>
+                    </div>
+                    <div class="box-body" style="max-height: 300px; overflow: auto;">
+                        <div *ngFor="let alerta of horusAlerts" class="alert alert-danger text-sm" role="alert">
+                            {{alerta}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PUERTAS -->
+            <div class="col-md-3">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bell"></i>
+                        <h3 class="box-title">Control de acceso</h3>
+                    </div>
                     <div class="box-body">
-                        <div *ngFor="let gate of HousingEstate.gates" class="pull-left" style="margin-right: 10px;">
+                        <div *ngFor="let gate of HousingEstate.gates" class="pull-left"
+                            style="margin: 5px 0; width: 100%;">
                             <div [ngSwitch]="gate.state">
-                                <button *ngSwitchCase="1" class="btn btn-success" (click)="openDoor(gate.id)">
+                                <button *ngSwitchCase="1" class="btn btn-success" style="width: 100%;"
+                                    (click)="openDoor(gate.id)">
                                     {{gate.name}}
                                 </button>
-                                <button *ngSwitchCase="2" class="btn btn-danger" (click)="closeDoor(gate.id)">
+                                <button *ngSwitchCase="2" class="btn btn-danger" style="width: 100%;"
+                                    (click)="closeDoor(gate.id)">
                                     {{gate.name}}
                                 </button>
-                                <button *ngSwitchCase="3" class="btn btn-warning" placement="top"
+                                <button *ngSwitchCase="3" class="btn btn-warning" style="width: 100%;" placement="top"
                                     [ngbTooltip]="gate.state_description">
                                     <i class="fa fa-info-circle"></i>
                                     {{gate.name}}
@@ -46,67 +81,15 @@
                 </div>
             </div>
 
-            <!--INFO UNIDAD -->
-            <div class="col-md-3">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <i class="fa fa-info-circle"></i>
-                        <h3 class="box-title">Información general</h3>
-                    </div>
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h5 class="tituNameHE">{{HousingEstate.name}}</h5>
-                                <address>
-                                    {{HousingEstate.address}}<br />
-                                    {{HousingEstate.phone_number}}<br />
-                                    {{HousingEstate.neighborhood}} -
-                                    {{HousingEstate.city.name}}
-                                </address>
-                            </div>
-                            <div class="col-md-12">
-                                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-                                    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-                                </agm-map>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-footer">
-                        <div class="btn-group btn-group-xs pull-right">
-                            <button type="button" class="btn btn-default"
-                                *ngIf="HousingEstate.administrators.length > 0">
-                                <i class="fa fa-phone"></i>
-                                Administradores
-                            </button>
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                *ngIf="HousingEstate.administrators.length > 0">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" *ngIf="HousingEstate.administrators.length > 0">
-                                <li *ngFor="let admin of HousingEstate.administrators">
-                                    <a href="#">
-                                        <i class="fa fa-user"></i>
-                                        {{admin.name}}
-                                        ({{admin.cellphone}})
-                                    </a>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default">
-                                <i class="fa fa-phone"></i>
-                                cuadrante ({{HousingEstate.police_phone_number}})
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- BUSCADOR RESIDENTES -->
-            <div class="col-md-3">
-                <div class="box small-box box-primary">
+            <div class="col-md-6">
+                <div class="box box-primary">
                     <div class="box-header with-border">
                         <i class="fa fa-users"></i>
                         <h3 class="box-title">Residentes</h3>
+                        <a class="btn btn-info btn-xs pull-right" data-toggle="modal" data-target="#modalTelefono">
+                            <i class="fa fa-phone" style="font-size: 30px;"></i>
+                        </a>
                     </div>
                     <div class="box-body">
                         <div class="input-group">
@@ -161,26 +144,96 @@
                 </div>
             </div>
 
-            <!-- TELÉFONO -->
-            <div class="col-md-2">
-                <div class="box box-primary">
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <input type="text" class="form-control" name="phonenumber" [value]="phone_number"
-                            style="margin-bottom:10px" />
-                        <div class="keyboard">
-                            <a (click)="selectedNumber('1')" class="btn btn-default">1</a>
-                            <a (click)="selectedNumber('2')" class="btn btn-default">2</a>
-                            <a (click)="selectedNumber('3')" class="btn btn-default">3</a>
-                            <a (click)="selectedNumber('4')" class="btn btn-default">4</a>
-                            <a (click)="selectedNumber('5')" class="btn btn-default">5</a>
-                            <a (click)="selectedNumber('6')" class="btn btn-default">6</a>
-                            <a (click)="selectedNumber('7')" class="btn btn-default">7</a>
-                            <a (click)="selectedNumber('8')" class="btn btn-default">8</a>
-                            <a (click)="selectedNumber('9')" class="btn btn-default">9</a>
-                            <a (click)="selectedNumber('*')" class="btn btn-default">*</a>
-                            <a (click)="selectedNumber('0')" class="btn btn-default">0</a>
-                            <a (click)="selectedNumber('#')" class="btn btn-default">#</a>
+            <!--MODAL INFO UNIDAD-->
+            <div class="modal fade" id="infoUnidad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel" style="float: left;">{{HousingEstate.name}}
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <address>
+                                        {{HousingEstate.address}}<br />
+                                        {{HousingEstate.phone_number}}<br />
+                                        {{HousingEstate.neighborhood}} -
+                                        {{HousingEstate.city.name}}
+                                    </address>
+                                </div>
+                                <div class="col-md-12">
+                                    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                                        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                                    </agm-map>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="btn-group btn-group-xs pull-right">
+                                <button type="button" class="btn btn-default"
+                                    *ngIf="HousingEstate.administrators.length > 0">
+                                    <i class="fa fa-phone"></i>
+                                    Administradores
+                                </button>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    *ngIf="HousingEstate.administrators.length > 0">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" *ngIf="HousingEstate.administrators.length > 0">
+                                    <li *ngFor="let admin of HousingEstate.administrators">
+                                        <a href="#">
+                                            <i class="fa fa-user"></i>
+                                            {{admin.name}}
+                                            ({{admin.cellphone}})
+                                        </a>
+                                    </li>
+                                </ul>
+                                <button type="button" class="btn btn-default">
+                                    <i class="fa fa-phone"></i>
+                                    cuadrante ({{HousingEstate.police_phone_number}})
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--MODAL TELEFONO -->
+            <div class="modal fade" id="modalTelefono" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel" style="float: left;">Llamar</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" class="form-control" name="phonenumber" [value]="phone_number"
+                                style="margin-bottom:10px" />
+                            <div class="keyboard">
+                                <a (click)="selectedNumber('1')" class="btn btn-default">1</a>
+                                <a (click)="selectedNumber('2')" class="btn btn-default">2</a>
+                                <a (click)="selectedNumber('3')" class="btn btn-default">3</a>
+                                <a (click)="selectedNumber('4')" class="btn btn-default">4</a>
+                                <a (click)="selectedNumber('5')" class="btn btn-default">5</a>
+                                <a (click)="selectedNumber('6')" class="btn btn-default">6</a>
+                                <a (click)="selectedNumber('7')" class="btn btn-default">7</a>
+                                <a (click)="selectedNumber('8')" class="btn btn-default">8</a>
+                                <a (click)="selectedNumber('9')" class="btn btn-default">9</a>
+                                <a (click)="selectedNumber('*')" class="btn btn-default">*</a>
+                                <a (click)="selectedNumber('0')" class="btn btn-default">0</a>
+                                <a (click)="selectedNumber('#')" class="btn btn-default">#</a>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
                             <a (click)="deletedNumber()" class="delete btn btn-warning">
                                 <i class="glyphicon glyphicon-remove"></i>
                             </a>
@@ -189,26 +242,10 @@
                             </a>
                         </div>
                     </div>
-                    <!-- /.box-body -->
                 </div>
             </div>
 
-            <!-- ALERTAS -->
-            <div class="col-md-4">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <i class="fa fa-bell"></i>
-                        <h3 class="box-title">Alertas</h3>
-                    </div>
-                    <div class="box-body">
-                        <div *ngFor="let alerta of horusAlerts" 
-                        class="alert alert-danger text-sm" 
-                        role="alert">
-                            {{alerta}}
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
         </div>
     </div>
