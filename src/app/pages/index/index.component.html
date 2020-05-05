@@ -20,7 +20,7 @@
 
             <!-- CAMARAS -->
             <div class="col-md-6">
-                <div class="box box-default">
+                <div class="box box-primary">
                     <div class="box-body">
                         <div *ngIf="!(HousingEstate.securityCameras.length > 0)">
                             <a class="btn btn-app" style="height: 170px; padding: 60px 20px">
@@ -110,22 +110,26 @@
                                 <div class="aptosfound">
                                     <span class="title">{{apto.name}}</span>
                                     <a *ngIf="apto.cellphone_number_2" (click)="callApartment(apto.cellphone_number_2)"
-                                        class="pull-right btn btn-default btn-xs">
+                                        class="pull-right btn btn-default btn-xs"
+                                        title="{{apto.cellphone_number_2}}">
                                         <i class="fa fa-phone"></i>
                                         Llamar 4
                                     </a>
                                     <a *ngIf="apto.cellphone_number_1" (click)="callApartment(apto.cellphone_number_1)"
-                                        class="pull-right btn btn-default btn-xs">
+                                        class="pull-right btn btn-default btn-xs"
+                                        title="{{apto.cellphone_number_1}}">
                                         <i class="fa fa-phone"></i>
                                         Llamar 3
                                     </a>
                                     <a *ngIf="apto.phone_number_2" (click)="callApartment(apto.phone_number_2)"
-                                        class="pull-right btn btn-default btn-xs">
+                                        class="pull-right btn btn-default btn-xs"
+                                        title="{{apto.phone_number_2}}">
                                         <i class="fa fa-phone"></i>
                                         Llamar 2
                                     </a>
                                     <a *ngIf="apto.phone_number_1" (click)="callApartment(apto.phone_number_1)"
-                                        class="pull-right btn btn-default btn-xs">
+                                        class="pull-right btn btn-default btn-xs"
+                                        title="{{apto.phone_number_1}}">
                                         <i class="fa fa-phone"></i>
                                         Llamar 1
                                     </a>
