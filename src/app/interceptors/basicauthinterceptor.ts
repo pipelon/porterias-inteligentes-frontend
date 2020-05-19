@@ -3,30 +3,31 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse
 import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
+import { StorageService } from '../auth/storage.service';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable()
 export class BasicAuthInterceptor implements HttpInterceptor {
 
-    constructor() { }
+    constructor(private _storage: StorageService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         if (!request.headers.has("X-Skip-Interceptor")) {
-            let claves = btoa(environment.username + ':' + environment.password);
 
             let idUnidadResidencial = (request.body && request.body.housingEstateID) ?
-                request.body.housingEstateID :
-                environment.idUnidadResidencial.toString();
+                request.body.housingEstateID : '';
 
-            if (environment.username && environment.password) {
+            let user = this._storage.getCurrentSession();
+            let id = user.id.toString();
+            const md5 = new Md5();
+            let userId = md5.appendStr(id).end();
 
-                const clonedAuthRequest = request.clone({
-                    headers: request.headers.set('Authorization', 'Basic ' + claves),
-                    url: request.url + '?idUnidadResidencial=' + idUnidadResidencial,
-                });
-                return this.nextHandle(clonedAuthRequest, next);
+            const clonedAuthRequest = request.clone({
+                url: request.url + '?user=' + userId,
+            });
+            return this.nextHandle(clonedAuthRequest, next);
 
-            }
         } else {
             const clonedAuthRequest = request.clone(
                 {

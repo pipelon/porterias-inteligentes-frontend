@@ -124,6 +124,27 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="assets/dist/img/default-user.png" class="user-image" alt="User Image">
+                            <span class="hidden-xs">{{serviceGuard.fullName}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="assets/dist/img/default-user.png" class="img-circle" alt="User Image">
+                                <p>
+                                    {{serviceGuard.fullName}}
+                                </p>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-right">
+                                    <a (click)="logout()" class="btn btn-default btn-flat">Salir</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-custom-menu -->

@@ -1,0 +1,44 @@
+<div class="login-box">
+    <div class="login-logo">
+      TeCuido
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+      <p class="login-box-msg">Ingrese sus credenciales de acceso</p>
+      
+      <form [formGroup]="loginForm" (ngSubmit)="submitLogin()" novalidate>
+
+        <div *ngIf="submitted && errorLogin" class="text-danger">
+          <div>Usuario y/o Clave incorrectos</div>
+        </div>
+
+        <div class="form-group has-feedback">
+          <input type="text" formControlName="username" class="form-control" placeholder="Usuario">
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          <div *ngIf="submitted && form.username.errors" class="text-danger">
+            <div *ngIf="form.username.errors.required">El usuario es requerido</div>
+          </div>
+        </div>
+        <div class="form-group has-feedback">
+          <input type="password" formControlName="password" class="form-control" placeholder="Clave">
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          <div *ngIf="submitted && form.password.errors" class="text-danger">
+            <div *ngIf="form.password.errors.required">La clave es requerida</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-8">
+            
+          </div>
+          <!-- /.col -->
+          <div class="col-xs-4">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Ingresar</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+  
+    </div>
+    <!-- /.login-box-body -->
+  </div>
+  <!-- /.login-box -->

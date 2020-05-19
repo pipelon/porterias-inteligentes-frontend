@@ -24,6 +24,7 @@ export class IndexComponent implements OnInit {
   public housingEstateID: number;
   public sub: Subscription;
   public horusAlerts = [];
+  public housingEstateAsoc = true;
 
   constructor(private _service: HousingestateService,
     private sanitizer: DomSanitizer,
@@ -63,6 +64,7 @@ export class IndexComponent implements OnInit {
           this.dataHousingEstate = data;
         },
         error => {
+          this.housingEstateAsoc = false;
           console.info('Error: ', error);
         }
       );
