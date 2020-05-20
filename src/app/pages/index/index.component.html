@@ -47,7 +47,7 @@
                         </div>
                         <div *ngIf="HousingEstate.securityCameras.length > 0">
                             <iframe *ngFor="let camera of HousingEstate.securityCameras" class="iframeCamera"
-                                [src]="getSafeUrlCamera(camera.camera_ip, camera.code)"></iframe>
+                                [src]="getSafeUrlCamera(camera.camera_ip, camera.code) | safeurl"></iframe>
                         </div>
                     </div>
                 </div>

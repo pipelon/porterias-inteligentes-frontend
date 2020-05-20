@@ -6,9 +6,6 @@ export const environment = {
   production: false,
   SOCKET_ENDPOINT: 'http://localhost:25003',
   urlApi: "http://localhost/porterias-inteligentes/web/",
-  idUnidadResidencial: ["1", "2"],
-  username: 'usarroyo',
-  password: 'pwArroyo123',
   call: {
     urServerCall: "http://142.93.60.136:8083/residentes/call.php",
     CODEEXT: "2004",

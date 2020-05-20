@@ -43,8 +43,7 @@ export class IndexComponent implements OnInit {
   }
 
   getSafeUrlCamera(IP: string, code: string) {
-    let url = IP + '/zm/?view=watch&mid=' + code + '&scale=14&showControls=false';
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    return IP + '/zm/?view=watch&mid=' + code + '&scale=14&showControls=false';
   }
 
   getSelectedHousingEstate(selectedHousingEstate: any) {
