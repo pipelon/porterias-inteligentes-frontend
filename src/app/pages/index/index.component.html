@@ -61,9 +61,10 @@
                         <h3 class="box-title">Monitor de seguimiento</h3>
                     </div>
                     <div class="box-body" style="max-height: 300px; overflow: auto;">
-                        <div *ngFor="let alerta of horusAlerts" class="alert alert-danger text-sm alerttecuido" role="alert">
+                        <div *ngFor="let alerta of horusAlerts" class="alert bg-gray-light text-sm alerttecuido" role="alert">
                             <span style="text-align: right; font-size: 9px">{{alerta.date}}</span>
-							<span>{{alerta.message}}</span>
+                            <span style="font-size: 16px; text-decoration: underline;">{{alerta.housingEstate}}</span>
+                            <span>{{alerta.message}}</span>
                         </div>
                     </div>
                 </div>
