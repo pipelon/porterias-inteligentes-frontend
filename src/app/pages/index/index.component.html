@@ -62,9 +62,8 @@
                     </div>
                     <div class="box-body" style="max-height: 300px; overflow: auto;">
                         <div *ngFor="let alerta of horusAlerts" class="alert alert-danger text-sm alerttecuido" role="alert">
-                            <span style="text-align: right; font-size: 9px">{{alerta[0].fe}}</span>
-							<span>{{alerta[0].ds}}</span>
-							<span>{{alerta[0].st}}</span>
+                            <span style="text-align: right; font-size: 9px">{{alerta.date}}</span>
+							<span>{{alerta.message}}</span>
                         </div>
                     </div>
                 </div>
