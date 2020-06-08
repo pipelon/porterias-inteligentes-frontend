@@ -15,7 +15,8 @@ export class HeaderComponent implements OnInit {
   public serviceGuard: User;
 
   constructor(private storageService: StorageService,
-    private _loginService: LoginService) { }
+    private _loginService: LoginService,
+    private _storage: StorageService) { }
 
   ngOnInit() {
     this.serviceGuard = this.storageService.getCurrentSession();
@@ -23,6 +24,7 @@ export class HeaderComponent implements OnInit {
 
   changeHousingEstate(position: number) {
     this.selectedHousingEstate.emit(this.listHousingEstates[position]);
+    this._storage.setSelectedHousingEstate(position);
   }
 
   public logout(): void {

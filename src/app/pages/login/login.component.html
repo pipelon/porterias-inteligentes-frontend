@@ -9,7 +9,7 @@
       <form [formGroup]="loginForm" (ngSubmit)="submitLogin()" novalidate>
 
         <div *ngIf="submitted && errorLogin" class="text-danger">
-          <div>Usuario y/o Clave incorrectos</div>
+          <div>Usuario y/o clave incorrectos o no tienes acceso a esta aplicación</div>
         </div>
 
         <div class="form-group has-feedback">

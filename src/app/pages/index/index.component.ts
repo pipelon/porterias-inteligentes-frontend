@@ -36,7 +36,7 @@ export class IndexComponent implements OnInit {
   }
 
   getAlerts() {
-    this.sub = this.socketService.setupSocketConnection()
+    this.sub = this.socketService.onAlerts()
       .subscribe(data => {
         this.horusAlerts.unshift(data);
       });

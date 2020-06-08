@@ -10,28 +10,21 @@ import { StorageService } from './../auth/storage.service';
 export class SocketService {
 
   public socket;
-  observer: Observer<any>;
   public session;
 
   constructor(private _storageService: StorageService) {
     this.session = this._storageService.getCurrentSession();
-  }
-
-  setupSocketConnection(): Observable<any> {
     this.socket = io(environment.SOCKET_ENDPOINT);
-
-    this.socket.on('alertas_generales', (data) => {
-      if (this.session.id === data.userId) {
-        this.observer.next(data);
-      }
-    });
-    
-    return this.createObservable();
   }
 
-  createObservable(): Observable<number> {
-    return new Observable(observer => {
-      this.observer = observer;
+  onAlerts(): Observable<any> {
+    return Observable.create((observer) => {
+      this.socket.on('alertas_generales', (message) => {
+        if (this.session.id === message.userId) {
+          observer.next(message);
+        }
+      });
     });
   }
+
 }
