@@ -54,6 +54,7 @@ export class IndexComponent implements OnInit {
       this.lat = parseInt(arrayCoord[0]);
       this.lng = parseInt(arrayCoord[1]);
     }
+    this.dataAptoFound = [];
   }
 
   getHousingEstates() {
