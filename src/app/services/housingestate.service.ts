@@ -26,16 +26,22 @@ export class HousingestateService {
       );
   }
 
-  openDoor(door) {
-    return this._http.get(`http://192.168.1.70/?DOOR2=T`)
+  openDoor(door: number, script: string) {
+    let headers = new HttpHeaders({
+      'X-Skip-Interceptor': "true"
+    });
+    return this._http.get(script + '&gate_id=' + door, {'headers': headers})
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
       );
   }
 
-  closeDoor(door) {
-    return this._http.get(`http://192.168.1.70/?DOOR1=T`)
+  closeDoor(door: number, script: string) {
+    let headers = new HttpHeaders({
+      'X-Skip-Interceptor': "true"
+    });
+    return this._http.get(script + '&gate_id=' + door, {'headers': headers})
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
@@ -51,7 +57,7 @@ export class HousingestateService {
 
   }
 
-  call(phone_number: string) {    
+  call(phone_number: string) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-Skip-Interceptor': "true"

@@ -4,6 +4,7 @@ import { LoginService } from 'src/app/auth/login.service';
 import { StorageService } from 'src/app/auth/storage.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { SocketService } from 'src/app/services/socket.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private _loginService: LoginService,
     private storageService: StorageService,
-    private router: Router) { }
+    private router: Router,
+    private socketService: SocketService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -49,6 +51,7 @@ export class LoginComponent implements OnInit {
   }
 
   private correctLogin(data:User){
+    this.socketService.connect();
     this.storageService.setCurrentSession(data);
     this.router.navigate(['/inicio']);
   }

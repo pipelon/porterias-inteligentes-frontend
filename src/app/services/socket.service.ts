@@ -13,8 +13,16 @@ export class SocketService {
   public session;
 
   constructor(private _storageService: StorageService) {
-    this.session = this._storageService.getCurrentSession();
+    this.session = this._storageService.getCurrentSession();   
+    this.connect();
+  }
+
+  connect(){
     this.socket = io(environment.SOCKET_ENDPOINT);
+  }
+
+  disconnect(){
+    this.socket.disconnect();
   }
 
   onAlerts(): Observable<any> {

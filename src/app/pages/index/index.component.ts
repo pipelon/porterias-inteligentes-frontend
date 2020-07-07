@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HousingestateService } from 'src/app/services/housingestate.service';
 import { HousingEstate } from 'src/app/models/housingestate';
 import { Apartments } from 'src/app/models/apartment';
-import { DomSanitizer } from '@angular/platform-browser';
 import { SocketService } from 'src/app/services/socket.service';
 import { Subscription } from 'rxjs';
 
@@ -27,7 +26,6 @@ export class IndexComponent implements OnInit {
   public housingEstateAsoc = true;
 
   constructor(private _service: HousingestateService,
-    private sanitizer: DomSanitizer,
     private socketService: SocketService) { }
 
   ngOnInit() {
@@ -104,8 +102,8 @@ export class IndexComponent implements OnInit {
     this.call(number);
   }
 
-  openDoor(door: number) {
-    this._service.openDoor(door)
+  openDoor(door: number, script: string) {
+    this._service.openDoor(door, script)
       .subscribe(
         data => {
           console.info(data);
@@ -116,8 +114,8 @@ export class IndexComponent implements OnInit {
       );
   }
 
-  closeDoor(door: number) {
-    this._service.closeDoor(door)
+  closeDoor(door: number, script: string) {
+    this._service.closeDoor(door, script)
       .subscribe(
         data => {
           console.info(data);

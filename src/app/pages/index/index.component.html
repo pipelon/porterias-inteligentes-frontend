@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row" *ngIf="HousingEstate">
 
             <!--NOMBRE UNIDAD-->
@@ -61,7 +61,8 @@
                         <h3 class="box-title">Monitor de seguimiento</h3>
                     </div>
                     <div class="box-body" style="max-height: 300px; overflow: auto;">
-                        <div *ngFor="let alerta of horusAlerts" class="alert bg-gray-light text-sm alerttecuido" role="alert">
+                        <div *ngFor="let alerta of horusAlerts" class="alert bg-gray-light text-sm alerttecuido"
+                            role="alert">
                             <span style="text-align: right; font-size: 9px">{{alerta.date}}</span>
                             <span style="font-size: 16px; text-decoration: underline;">{{alerta.housingEstate}}</span>
                             <span>{{alerta.message}}</span>
@@ -78,23 +79,21 @@
                         <h3 class="box-title">Control de acceso</h3>
                     </div>
                     <div class="box-body">
-                        <div *ngFor="let gate of HousingEstate.gates" class="pull-left"
-                            style="margin: 5px 0; width: 100%;">
-                            <div [ngSwitch]="gate.state">
-                                <button *ngSwitchCase="1" class="btn btn-success" style="width: 100%;"
-                                    (click)="openDoor(gate.id)">
+                        <div *ngFor="let gate of HousingEstate.gates" class="pull-left"style="width: 100%">
+                            <div class="well" style="text-align: center;margin-bottom: 5px;">
+                                <span style="display:block; padding-bottom: 10px; line-height: 1;">
                                     {{gate.name}}
-                                </button>
-                                <button *ngSwitchCase="2" class="btn btn-danger" style="width: 100%;"
-                                    (click)="closeDoor(gate.id)">
-                                    {{gate.name}}
-                                </button>
-                                <button *ngSwitchCase="3" class="btn btn-warning" style="width: 100%;" placement="top"
-                                    [ngbTooltip]="gate.state_description">
-                                    <i class="fa fa-info-circle"></i>
-                                    {{gate.name}}
-                                </button>
+                                </span>
+                                <a class="btn btn-success btn-xs" style="width: 100%; margin-bottom: 5px;"
+                                    (click)="openDoor(gate.id, gate.open_script)">
+                                    Abrir
+                                </a>
+                                <a class="btn btn-danger btn-xs" style="width: 100%;"
+                                    (click)="closeDoor(gate.id, gate.close_script)">
+                                    Cerrar
+                                </a>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -129,26 +128,22 @@
                                 <div class="aptosfound">
                                     <span class="title">{{apto.name}}</span>
                                     <a *ngIf="apto.cellphone_number_2" (click)="callApartment(apto.cellphone_number_2)"
-                                        class="pull-right btn btn-default btn-xs"
-                                        title="{{apto.cellphone_number_2}}">
+                                        class="pull-right btn btn-default btn-xs" title="{{apto.cellphone_number_2}}">
                                         <i class="fa fa-phone"></i>
                                         Llamar 4
                                     </a>
                                     <a *ngIf="apto.cellphone_number_1" (click)="callApartment(apto.cellphone_number_1)"
-                                        class="pull-right btn btn-default btn-xs"
-                                        title="{{apto.cellphone_number_1}}">
+                                        class="pull-right btn btn-default btn-xs" title="{{apto.cellphone_number_1}}">
                                         <i class="fa fa-phone"></i>
                                         Llamar 3
                                     </a>
                                     <a *ngIf="apto.phone_number_2" (click)="callApartment(apto.phone_number_2)"
-                                        class="pull-right btn btn-default btn-xs"
-                                        title="{{apto.phone_number_2}}">
+                                        class="pull-right btn btn-default btn-xs" title="{{apto.phone_number_2}}">
                                         <i class="fa fa-phone"></i>
                                         Llamar 2
                                     </a>
                                     <a *ngIf="apto.phone_number_1" (click)="callApartment(apto.phone_number_1)"
-                                        class="pull-right btn btn-default btn-xs"
-                                        title="{{apto.phone_number_1}}">
+                                        class="pull-right btn btn-default btn-xs" title="{{apto.phone_number_1}}">
                                         <i class="fa fa-phone"></i>
                                         Llamar 1
                                     </a>
